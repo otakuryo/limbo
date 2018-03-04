@@ -13,4 +13,7 @@
     <string name="title_activity_media">MediaActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="like">like</string>
+    <string name="profile">image profile</string>
+    <string name="principalimg">Principal Imagen</string>
 </resources>
