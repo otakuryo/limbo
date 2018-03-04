@@ -28,6 +28,11 @@ import com.google.firebase.database.Query;
 public abstract class PostListFragment extends Fragment {
     DatabaseReference mReference;
     FirebaseRecyclerAdapter mAdapter;
+    static Post postTempSelect;
+
+    public static Post getPostTempSelect() {
+        return postTempSelect;
+    }
 
     public PostListFragment() {
         // Required empty public constructor
@@ -81,7 +86,8 @@ public abstract class PostListFragment extends Fragment {
                     holder.image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), MediaActivity.class);
+                            postTempSelect = post;
+                            Intent intent = new Intent(getActivity(), InfoActivity.class);
                             intent.putExtra("MEDIA_URL", post.mediaUrl);
                             intent.putExtra("MEDIA_TYPE", post.mediaType);
                             startActivity(intent);
