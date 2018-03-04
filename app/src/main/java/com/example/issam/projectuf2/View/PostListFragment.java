@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public abstract class PostListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
+
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Post>()
                 .setIndexedQuery(setQuery(), mReference.child("posts/data"), Post.class)
                 .setLifecycleOwner(this)
@@ -56,8 +59,16 @@ public abstract class PostListFragment extends Fragment {
                         .load(post.authorPicUrl)
                         .apply(new RequestOptions().circleCrop())
                         .into(holder.aurthorPhoto);
+                //en este apartado se buscara seguidamente se cortara, para posteriormente ser mostrado
+                if (!post.content.equals("") && post.content.contains(".")){
+                    int cContent = post.content.indexOf(".");
+                    String tempContent = post.content.substring(0,cContent);
+                    holder.content.setText(tempContent);
+                }else{
+                    holder.content.setText(post.content);
+                }
+                //fin del corte
 
-                holder.content.setText(post.content);
                 holder.image.setVisibility(View.VISIBLE);
                 if(post.mediaUrl != null) {
                     if("audio".equals(post.mediaType)){
@@ -115,8 +126,26 @@ public abstract class PostListFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
+        //Ocultar el fab de MainActivity
+        final FloatingActionButton fab = MainActivity.getfab();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0 ||dy<0 && fab.isShown())
+                    fab.hide();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+                if (newState == RecyclerView.SCROLL_STATE_SETTLING){ //settling aun no esta claro su uso
+                    fab.show();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        //fab fin
         return view;
     }
     abstract Query setQuery();
-
 }

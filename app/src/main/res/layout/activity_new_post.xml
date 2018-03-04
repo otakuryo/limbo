@@ -1,59 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.issam.projectuf2.View.NewPostActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/publish"
-            android:text="PUBLISH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
-        <EditText
-            android:id="@+id/content"
-            android:hint="En que estas pensando?"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:lines="6"
-            android:foregroundGravity="top|left"/>
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="top|left"
+                android:hint="@string/titulo"
+                android:lines="1"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="top|left"
+                android:hint="Descripcion breve, terminado en punto\nDescripcion larga (max 480 letras)"
+                android:lines="6"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/fIni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Inicio de actividad" />
+
+            <EditText
+                android:id="@+id/fEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fin de actividad" />
+
+            <EditText
+                android:id="@+id/lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Latitud mapa" />
+
+            <EditText
+                android:id="@+id/lon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Longitud mapa" />
+
+            <EditText
+                android:id="@+id/vYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Video de Youtube" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="30dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/hd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/publish"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/pen" />
 
-        <Button
-            android:id="@+id/btnImage"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/photo" />
-        <Button
-            android:id="@+id/btnVideo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/video" />
-        <Button
-        android:id="@+id/btnAudio"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginLeft="8dp"
-        android:background="@drawable/audio" />
-
-    </LinearLayout>
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.example.issam.projectuf2.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.issam.projectuf2.Model.Post;
@@ -26,9 +28,10 @@ import com.google.firebase.storage.UploadTask;
 import java.util.UUID;
 
 public class NewPostActivity extends AppCompatActivity{
-    Button btnPublish, btnPhoto, btnVideo, btnAudio;
+    FloatingActionButton btnPublish;
+    //Button btnPhoto, btnVideo, btnAudio;
     DatabaseReference databaseReference;
-    EditText content;
+    EditText titulo,content,fIni,fEnd,vYou,lat,lon;
     ImageView image;
     Uri mediUri;
     Uri downloadUrl;
@@ -45,28 +48,38 @@ public class NewPostActivity extends AppCompatActivity{
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-         content = findViewById(R.id.content);
-         image = findViewById(R.id.image);
-         btnPhoto = findViewById(R.id.btnImage);
-         btnVideo = findViewById(R.id.btnVideo);
-         btnAudio = findViewById(R.id.btnAudio);
+        titulo=findViewById(R.id.titulo);
+        content = findViewById(R.id.content);
+        fIni=findViewById(R.id.fIni);
+        fEnd=findViewById(R.id.fEnd);
+        vYou=findViewById(R.id.vYou);
+        lat=findViewById(R.id.lat);
+        lon=findViewById(R.id.lon);
+        image = findViewById(R.id.image);
+        //btnPhoto = findViewById(R.id.btnImage);
+        //btnVideo = findViewById(R.id.btnVideo);
+        //btnAudio = findViewById(R.id.btnAudio);
          btnPublish = findViewById(R.id.publish);
 
         btnPublish.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                btnPublish.setEnabled(false);
-                if(mediUri != null){
-                    uploadFileAndWriteNewPost();
-                }else {
-                    writeNewPost();
+                if (content != null && titulo != null && fIni !=null && fEnd != null){
+                    btnPublish.setEnabled(false);
+                    if(mediUri != null){
+                        uploadFileAndWriteNewPost();
+                    }else{
+                        writeNewPost();
+                    }
+                    finish();
+                }else{
+                    Toast.makeText(NewPostActivity.this, "Rellena todos los campos!", Toast.LENGTH_SHORT).show();
                 }
-                finish();
             }
         });
 
-        btnPhoto.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -74,6 +87,7 @@ public class NewPostActivity extends AppCompatActivity{
             }
         });
 
+        /*
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +103,7 @@ public class NewPostActivity extends AppCompatActivity{
                 startActivityForResult(intent, RC_AUDIO_PICK);
             }
         });
-
+        */
     }
     void writeNewPost(){
         String postKey = databaseReference.child("posts").push().getKey();
@@ -97,10 +111,11 @@ public class NewPostActivity extends AppCompatActivity{
 
         Post post;
 
+        //String uid, String content, String author, String authorPicUrl,String titulo,String fIni,String fEnd,String vYou,float lat,float lon
         if(mediUri == null){
-            post = new Post(firebaseUser.getUid(), content.getText().toString(),firebaseUser.getDisplayName(),firebaseUser.getPhotoUrl().toString());
+            post = new Post(firebaseUser.getUid(), content.getText().toString(),firebaseUser.getDisplayName(),firebaseUser.getPhotoUrl().toString(),titulo.getText().toString() ,fIni.getText().toString() ,fEnd.getText().toString() ,vYou.getText().toString() ,lat.getText().toString() ,lon.getText().toString());
         }else {
-           post = new Post(firebaseUser.getUid(), content.getText().toString(),firebaseUser.getDisplayName(),firebaseUser.getPhotoUrl().toString(), downloadUrl.toString(), mediaType);
+           post = new Post(firebaseUser.getUid(), content.getText().toString(),firebaseUser.getDisplayName(),firebaseUser.getPhotoUrl().toString(), downloadUrl.toString(), mediaType,titulo.getText().toString() ,fIni.getText().toString() ,fEnd.getText().toString() ,vYou.getText().toString() ,lat.getText().toString() ,lon.getText().toString());
         }
         databaseReference.child("posts/data").child(postKey).setValue(post);
         databaseReference.child("posts/all-posts").child(postKey).setValue(true);

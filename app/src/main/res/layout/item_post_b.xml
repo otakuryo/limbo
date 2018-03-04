@@ -16,6 +16,8 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:contentDescription="@string/principalimg"
             android:scaleType="center"
             android:src="@drawable/hd" />
@@ -35,6 +37,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@string/profile"
                 app:srcCompat="@drawable/user"
                 tools:ignore="VectorDrawableCompat" />
@@ -59,9 +62,10 @@
 
                 <TextView
                     android:id="@+id/content"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="content"
                     android:layout_width="wrap_content"
+                    android:maxLength="90"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"/>
 

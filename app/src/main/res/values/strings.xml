@@ -16,4 +16,5 @@
     <string name="like">like</string>
     <string name="profile">image profile</string>
     <string name="principalimg">Principal Imagen</string>
+    <string name="titulo">Titulo</string>
 </resources>
