@@ -1,6 +1,7 @@
 package com.example.issam.projectuf2.View;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -60,7 +61,7 @@ public class InfoActivity extends AppCompatActivity {
         post=PostListFragment.getPostTempSelect();
         //fin de recogida
 
-        collapsingToolbarLayout.setTitle("da");
+        collapsingToolbarLayout.setTitle(post.titulo);
 
         Intent intent = getIntent();
         //post=intent.getParcelableExtra("post");
@@ -91,9 +92,28 @@ public class InfoActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                googleMaps();
                 Snackbar.make(view, "Se abrira google maps con x ubicacion", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    void googleMaps(){
+        String lat= "41.45572457111545";
+        String lon="2.201298946723341";
+        String text="IES Puig Lol";
+
+        // Create a Uri from an intent string. Use the result to create an Intent.
+        Uri gmmIntentUri = Uri.parse("geo:"+lat+","+lon+"?q="+lat+","+lon+"("+text+")");
+
+        // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+        // Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        // Attempt to start an activity that can handle the Intent
+        startActivity(mapIntent);
     }
 }

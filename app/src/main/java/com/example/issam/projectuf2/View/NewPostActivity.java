@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,8 @@ public class NewPostActivity extends AppCompatActivity{
     FloatingActionButton btnPublish;
     //Button btnPhoto, btnVideo, btnAudio;
     DatabaseReference databaseReference;
-    EditText titulo,content,fIni,fEnd,vYou,lat,lon;
+    EditText titulo,content,vYou,lat,lon;
+    Button fIni,fEnd;
     ImageView image;
     Uri mediUri;
     Uri downloadUrl;
@@ -50,8 +52,8 @@ public class NewPostActivity extends AppCompatActivity{
 
         titulo=findViewById(R.id.titulo);
         content = findViewById(R.id.content);
-        fIni=findViewById(R.id.fIni);
-        fEnd=findViewById(R.id.fEnd);
+        fIni=findViewById(R.id.fIni_b);
+        fEnd=findViewById(R.id.fEnd_b);
         vYou=findViewById(R.id.vYou);
         lat=findViewById(R.id.lat);
         lon=findViewById(R.id.lon);
@@ -65,7 +67,8 @@ public class NewPostActivity extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-                if (content != null && titulo != null && fIni !=null && fEnd != null){
+                Log.i(".....", "onClick: Buscando"+"-"+content+"-"+titulo+"-"+fEnd+"-"+fIni);
+                if (!TextUtils.isEmpty(content.getText()) || !TextUtils.isEmpty(titulo.getText())){
                     btnPublish.setEnabled(false);
                     if(mediUri != null){
                         uploadFileAndWriteNewPost();

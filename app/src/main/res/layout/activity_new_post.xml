@@ -32,18 +32,18 @@
                 android:hint="Descripcion breve, terminado en punto\nDescripcion larga (max 480 letras)"
                 android:lines="6"
                 android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/fIni"
+            <Button
+                android:text="Inicio"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Inicio de actividad" />
-
-            <EditText
-                android:id="@+id/fEnd"
+                android:id="@+id/fIni_b"/>
+            <Button
+                android:text="Fin"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fin de actividad" />
+                android:id="@+id/fEnd_b"/>
 
             <EditText
                 android:id="@+id/lat"
@@ -62,6 +62,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Video de Youtube" />
+
+            <EditText
+                android:id="@+id/userPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña (necesario para editar)" />
 
             <ImageView
                 android:id="@+id/image"
